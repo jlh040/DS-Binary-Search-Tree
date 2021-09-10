@@ -19,7 +19,7 @@ class BinarySearchTree {
       this.root = new Node(val);
       return this;
     }
-    
+
     const toVisitQueue = [this.root];
 
     while (toVisitQueue.length) {
@@ -53,7 +53,44 @@ class BinarySearchTree {
    * Returns the tree. Uses recursion. */
 
   insertRecursively(val) {
+    if (this.root === null) {
+      this.root = new Node(val);
+      return this;
+    }
 
+    let that = this;
+    
+    function traverse(currentNode) {
+      if (val < currentNode.val) {
+        if (currentNode.left !== null) {
+          null;
+        }
+        else {
+          currentNode.left = new Node(val);
+          return that;
+        }
+      }
+      else if (val > currentNode.val) {
+        if (currentNode.right !== null) {
+          null;
+        }
+        else {
+          currentNode.right = new Node(val);
+          return that;
+        }
+      }
+
+      if (currentNode.left) {
+        let returnVal = traverse(currentNode.left);
+        if (returnVal) return returnVal;
+      }
+      if (currentNode.right) {
+        let returnVal = traverse(currentNode.right);
+        if (returnVal) return returnVal;
+      } 
+    }
+    
+    return traverse(this.root);
   }
 
   /** find(val): search the tree for a node with value val.
