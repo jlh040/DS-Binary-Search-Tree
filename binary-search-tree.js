@@ -144,7 +144,16 @@ class BinarySearchTree {
    * Return an array of visited nodes. */
 
   dfsInOrder() {
+    const arrOfNodes = [];
 
+    function traverse(startingNode) {
+      if (startingNode.left) traverse(startingNode.left);
+      arrOfNodes.push(startingNode.val);
+      if (startingNode.right) traverse(startingNode.right);
+    };
+
+    traverse(this.root);
+    return arrOfNodes;
   }
 
   /** dfsPostOrder(): Traverse the array using post-order DFS.
