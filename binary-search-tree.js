@@ -91,17 +91,14 @@ class BinarySearchTree {
    * return the node, if found; else undefined. Uses iteration. */
 
   find(val) {
-    const toVisitStack = [this.root];
+    let current = this.root;
 
-    while (toVisitStack.length) {
-      let current = toVisitStack.pop();
-
+    while (current) {
       if (current.val === val) {
         return current;
       }
 
-      if (current.left) toVisitStack.push(current.left);
-      if (current.right) toVisitStack.push(current.right);
+      current = val > current.val ? current.right : current.left;
     }
   }
 
