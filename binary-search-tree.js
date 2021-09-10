@@ -59,7 +59,7 @@ class BinarySearchTree {
     }
 
     let that = this;
-    
+
     function traverse(currentNode) {
       if (val < currentNode.val) {
         if (currentNode.left !== null) {
@@ -97,7 +97,18 @@ class BinarySearchTree {
    * return the node, if found; else undefined. Uses iteration. */
 
   find(val) {
+    const toVisitStack = [this.root];
 
+    while (toVisitStack.length) {
+      let current = toVisitStack.pop();
+
+      if (current.val === val) {
+        return current;
+      }
+
+      if (current.left) toVisitStack.push(current.left);
+      if (current.right) toVisitStack.push(current.right);
+    }
   }
 
   /** findRecursively(val): search the tree for a node with value val.
