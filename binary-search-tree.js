@@ -115,7 +115,22 @@ class BinarySearchTree {
    * return the node, if found; else undefined. Uses recursion. */
 
   findRecursively(val) {
+    function traverse(startingNode) {
+      if (startingNode.val === val) {
+        return startingNode;
+      }
 
+      if (startingNode.left) {
+        let returnVal = traverse(startingNode.left);
+        if (returnVal) return returnVal;
+      }
+      if (startingNode.right) {
+        let returnVal = traverse(startingNode.right);
+        if (returnVal) return returnVal;
+      }
+    }
+
+    return traverse(this.root);
   }
 
   /** dfsPreOrder(): Traverse the array using pre-order DFS.
