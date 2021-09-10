@@ -15,37 +15,31 @@ class BinarySearchTree {
    * Returns the tree. Uses iteration. */
 
   insert(val) {
-    if (this.root === null) {
+    let current = this.root;
+    if (current === null) {
       this.root = new Node(val);
       return this;
     }
 
-    const toVisitQueue = [this.root];
-
-    while (toVisitQueue.length) {
-      let current = toVisitQueue.shift();
-
+    while (current) {
       if (val > current.val) {
-        if (current.right !== null) {
-          null;
-        }
-        else {
+        if (current.right === null) {
           current.right = new Node(val);
           return this;
         }
-      }
-      else if (val < current.val) {
-        if (current.left !== null) {
-          null;
-        }
         else {
+          current = current.right;
+        }
+      } 
+      else if (val < current.val) {
+        if (current.left === null) {
           current.left = new Node(val);
           return this;
         }
-      }
-
-      if (current.left) toVisitQueue.push(current.left);
-      if (current.right) toVisitQueue.push(current.right);
+        else {
+          current = current.left;
+        }
+      } 
     }
   }
 
@@ -137,7 +131,16 @@ class BinarySearchTree {
    * Return an array of visited nodes. */
 
   dfsPreOrder() {
+    const arrOfNodes = [];
 
+    function traverse(startingNode) {
+      arrOfNodes.push(startingNode.val);
+      if (startingNode.left) traverse(startingNode.left);
+      if (startingNode.right) traverse(startingNode.right);
+    }
+
+    traverse(this.root);
+    return arrOfNodes;
   }
 
   /** dfsInOrder(): Traverse the array using in-order DFS.
